@@ -1,0 +1,74 @@
+/*
+ * MRCC_Interface.h
+ *
+ *  Created on: May 10, 2022 3:58:57 AM RCC_DRIVER_PRO
+ *      Author: mahmoud ramadan
+ */
+
+#ifndef MCAL_MRCC_MRCC_INTERFACE_H_
+#define MCAL_MRCC_MRCC_INTERFACE_H_
+
+#define RCC_AHB   0
+#define RCC_APB1  1
+#define RCC_APB2  2
+
+/*AHB peripheral BITS*/
+#define DMA1EN_PERIPHERAL  0
+#define DMA2EN_PERIPHERAL  1
+#define SRAMEN_PERIPHERAL  2
+#define FLITFEN_PERIPHERAL 4
+#define CRCEN_PERIPHERAL   6
+#define FSMCEN_PERIPHERAL  8
+#define SDIOEN_PERIPHERAL  10
+
+/*APB1 peripheral BITS*/
+#define TIM2RST_PERIPHERAL      0
+#define TIM3RST_PERIPHERAL		1
+#define TIM4RST_PERIPHERAL		2
+#define TIM5RST_PERIPHERAL		3
+#define TIM6RST_PERIPHERAL		4
+#define TIM7RST_PERIPHERAL		5
+#define TIM12RST_PERIPHERAL		6
+#define TIM13RST_PERIPHERAL		7
+#define TIM14RST_PERIPHERAL		8
+#define WWDGRST_PERIPHERAL		11
+#define SPI2RST_PERIPHERAL		14
+#define SPI3RST_PERIPHERAL		15
+#define UART2RST_PERIPHERAL		17
+#define UART3RST_PERIPHERAL		18
+#define UART4RST_PERIPHERAL		19
+#define UART5RST_PERIPHERAL		20
+#define I2C1RST_PERIPHERAL		21
+#define I2C2RST_PERIPHERAL		22
+#define USBRST_PERIPHERAL		23
+#define CANRST_PERIPHERAL		25
+#define BKPRST_PERIPHERAL		27
+#define PWRRST_PERIPHERAL		28
+#define DACRST_PERIPHERAL		29
+
+/*APB2 peripheral BITS*/
+#define AFIOEN_PERIPHERAL     0
+#define IOPAEN_PERIPHERAL     2
+#define IOPBEN_PERIPHERAL     3
+#define IOPCEN_PERIPHERAL     4
+#define IOPDEN_PERIPHERAL     5
+#define IOPEEN_PERIPHERAL     6
+#define IOPFEN_PERIPHERAL     7
+#define IOPGEN_PERIPHERAL     8
+#define ADC1EN_PERIPHERAL     9
+#define ADC2EN_PERIPHERAL     10
+#define TIM1EN_PERIPHERAL     11
+#define SPI1EN_PERIPHERAL     12
+#define TIM8EN_PERIPHERAL     13
+#define USART1EN_PERIPHERAL   14
+#define ADC3EN_PERIPHERAL     15
+#define TIM9EN_PERIPHERAL     19
+#define TIM10EN_PERIPHERAL    20
+#define TIM11EN_PERIPHERAL    21
+
+void MRCC_VidInitSystemClock(void);
+void MRCC_VidEnableSystemClock(uint8 copy_uint8BusID,uint8 copy_uint8PerpheralID);
+void MRCC_VidDisableSystemClock(uint8 copy_uint8BusID,uint8 copy_uint8PerpheralID);
+
+
+#endif /* MCAL_MRCC_MRCC_INTERFACE_H_ */
