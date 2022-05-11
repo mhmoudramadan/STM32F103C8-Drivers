@@ -1,2 +1,2 @@
 # STM32F103C8-Drivers
-STM32F103C8 based on ARM CortexM4
+STM32F103C8 based on ARM Cortex_M3
