@@ -1,0 +1,18 @@
+/*
+ * HLED_Config.h
+ *
+ *  Created on: May 12, 2022 11:06:24 AM LED_DRIVER_PRO
+ *      Author: mahmoud ramadan
+ */
+
+#ifndef HAL_HLED_HLED_CONFIG_H_
+#define HAL_HLED_HLED_CONFIG_H_
+
+/*GPIO out options
+ * 1-MGPIO_OUTPUT_2MHZ_PULL_UP_DOWN
+ * 2-MGPIO_OUTPUT_10MHZ_PULL_UP_DOWN
+ * 3-MGPIO_OUTPUT_50MHZ_PULL_UP_DOWN
+ * */
+#define LED_MODE_OUTPUT  MGPIO_OUTPUT_10MHZ_PULL_UP_DOWN
+
+#endif /* HAL_HLED_HLED_CONFIG_H_ */
