@@ -1,2 +1,3 @@
-# STM32F103C8-Drivers
-STM32F103C8 based on ARM Cortex_M3
+# STM32F103C8 MC - 
+Drivers--> MCAL & HAL
+STM32 based on ARM Cortex-M3
