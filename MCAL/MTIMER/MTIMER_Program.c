@@ -21,6 +21,25 @@ void MTIMER_VidInit(MTimer_Configuration *copy_config)
 	MTIMER_VidTimer_Disable(copy_config->copy_uint8Timer_ID);
 	/*Set Reload value*/
 	MTIMER_VidSet_ReloadValue(copy_config->copy_uint8Timer_ID,copy_config->copy_uint16Reload_Value);
+	/*Set counter options*/
+	switch(copy_config->copy_uint8Count_Direction)
+	{
+	case TIMER_UP_Direction:
+	{
+		CLR_BIT(GPT.CR1,4);
+		CLR_BIT(Advanced.CR1,4);
+		CLR_BIT(Basic.CR1,4);
+	}
+	case TIMER_DOWN_DIRECTION:
+	{
+		SET_BIT(GPT.CR1,4);
+		SET_BIT(Advanced.CR1,4);
+		SET_BIT(Basic.CR1,4);
+		break;
+	}
+	default:
+		break;
+	}
 	/*Set Interrupt update*/
 	SET_BIT(GPT.DIER,0);
 	SET_BIT(Advanced.DIER,0);
