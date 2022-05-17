@@ -13,6 +13,11 @@ void (*CALLBACK)(void);
 /*Initialize EXTI*/
 void MEXTI_VidInitEXTI(uint8 copy_uint8Line , MEXTI_Trigger_Sense_Control copy_TriggerEvent)
 {
+	/*Reset Register Value At first */
+	EXTI->IMR=0x00000000;
+	EXTI->EMR=0x00000000;
+	EXTI->RTSR=0x00000000;
+	EXTI->FTSR=0x00000000;
 /*unmask interrupt line */
 	CLR_BIT(EXTI->IMR,copy_uint8Line);
 	/*Select Trigger option*/
