@@ -20,7 +20,7 @@ void MSTK_VidInit(void)
 	/*Reset Register first */
 	STK->CTRL=0x00000000;
 	/*Choose Clock*/
-#if STK_CLOCK_SOURCE==AHP_SOURCE
+#if STK_CLOCK_SOURCE==AHB_SOURCE
 		SET_BIT(STK->CTRL,CTRL_CLKSOURCE);
 		Global_uint32Clock=STK_AHP_CLOCK;
 #elif STK_CLOCK_SOURCE==AHB_BY_8_SOURCE
@@ -32,19 +32,19 @@ void MSTK_VidInit(void)
 }
 void MSTK_VidSet_BusyWait(uint32 copy_uint32Time,MSTK_Time_Options copy_TimeUint)
 {
-	uint32 Loc_Value=0;
+	uint32 Loc_Load=0;
 	switch(copy_TimeUint)
 	{
 	case TIME_MS:
 	{
-		Loc_Value=copy_uint32Time*(Global_uint32Clock/1000);
-		STK->LOAD=Loc_Value;
+		Loc_Load=copy_uint32Time*(Global_uint32Clock/1000);
+		STK->LOAD=Loc_Load;
 		break;
 	}
 	case TIME_US:
 	{
-		Loc_Value=copy_uint32Time*(Global_uint32Clock/1000000);
-		STK->LOAD=Loc_Value;
+		Loc_Load=copy_uint32Time*(Global_uint32Clock/1000000);
+		STK->LOAD=Loc_Load;
 		break;
 	}
 	default:
@@ -77,11 +77,11 @@ void MSTK_VidSet_Interval_Periodic(uint32 copy_uint32Time,MSTK_Time_Options copy
 	default:
 		break;
 	}
-	CALLBACK=PtrToFun;
 	/*Timer Initialize */
 	SET_BIT(STK->CTRL,CTRL_ENABLE);
 	/*Enable interrupt*/
 	SET_BIT(STK->CTRL,CTRL_TICKINT);
+	CALLBACK=PtrToFun;
 }
 void MSTK_VidSet_Interval_Single(uint32 copy_uint32Time,MSTK_Time_Options copy_TimeUint,void(*PtrToFun)(void))
 {
@@ -137,24 +137,24 @@ void MSTK_Vid_StartSTK(void)
 }
 uint32 MSTK_uint32Get_ElapsedTime(MSTK_Time_Options copy_TimeUint)
 {
-	uint32 Loc_Val=0,Loc_ElaspesedTime=0;
+	uint32 Loc_Val=0,Loc_ElapsedTime=0;
 	Loc_Val=STK->LOAD -STK->VAL;
 	switch(copy_TimeUint)
 	{
 	case TIME_MS:
 	{
-		Loc_ElaspesedTime=Loc_Val*(Global_uint32Clock/1000);
+		Loc_ElapsedTime=Loc_Val*(Global_uint32Clock/1000);
 		break;
 	}
 	case TIME_US:
 	{
-		Loc_ElaspesedTime=Loc_Val*(Global_uint32Clock/1000000);
+		Loc_ElapsedTime=Loc_Val*(Global_uint32Clock/1000000);
 		break;
 	}
 	default:
 		break;
 	}
-	return Loc_ElaspesedTime;
+	return Loc_ElapsedTime;
 }
 uint32 MSTK_uint32Get_RemainingTime(MSTK_Time_Options copy_TimeUint)
 {
