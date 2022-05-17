@@ -11,6 +11,8 @@
 
 void MFPEC_VidProgrammFlash(uint32 copy_uint32Address,uint16 *Puint16_code,uint8 copy_uint8Length);
 uint8 MFPEC_VidProgram_HalfWord_Flash(uint32 copy_uint32Address,uint16 copy_uint16Code);
+uint8 MFPEC_Vid_OneByteOption_Program_HalfWord_FLash(uint32 copy_uint32Address,uint16 copy_uint16Code);
+void MFPEC_Vid_Erase_OneByteOption(uint16 copy_uint16Page);
 void MFPEC_VidErase_Page(uint16 copy_uint16Page);
 void MFPEC_VidErase_Area(void);
 void MFPEC_VidErase_Mass(void );

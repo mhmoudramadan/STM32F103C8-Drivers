@@ -63,6 +63,52 @@ uint8 MFPEC_VidProgram_HalfWord_Flash(uint32 copy_uint32Address,uint16 copy_uint
 		SET_BIT(FPEC->FLASH_SR,EOP);
 		return Loc_State;
 }
+uint8 MFPEC_Vid_OneByteOption_Program_HalfWord_FLash(uint32 copy_uint32Address,uint16 copy_uint16Code)
+{
+	uint8 Loc_State=0;
+		/*Check for flash Lock*/
+		if(GET_BIT(FPEC->FLASH_CR,LOCK)==1)
+		{
+			/*Sequence for Unlock*/
+			FPEC->FLASH_OPTKEYR=RDPRT_KEY;
+		}
+		/*unlock one byte programming*/
+		SET_BIT(FPEC->FLASH_CR,OPTWRE);
+		SET_BIT(FPEC->FLASH_CR,OPTPG);
+		/*Write On Flash*/
+		*((uint16 *)copy_uint32Address)=copy_uint16Code;
+		while(GET_BIT(FPEC->FLASH_SR,BSY)==1);
+		CLR_BIT(FPEC->FLASH_CR,PG);
+		if(*((uint16 *)copy_uint32Address)==copy_uint16Code)
+		{
+			Loc_State=1;
+		}
+		else
+		{
+			Loc_State=0;
+		}
+		SET_BIT(FPEC->FLASH_SR,EOP);
+		return Loc_State;
+}
+void MFPEC_Vid_Erase_OneByteOption(uint16 copy_uint16Page)
+{
+	while(GET_BIT(FPEC->FLASH_SR,BSY)==1);
+	/*Check for flash Lock*/
+	if(GET_BIT(FPEC->FLASH_CR,LOCK)==1)
+	{
+		/*Sequence for Unlock*/
+		FPEC->FLASH_OPTKEYR=RDPRT_KEY;
+	}
+	/*unlock one byte Erase */
+	SET_BIT(FPEC->FLASH_CR,OPTWRE);
+	SET_BIT(FPEC->FLASH_CR,OPTER);
+	FPEC->FLASH_AR=FLASH_FIRST_ADDRESS+(uint32)copy_uint16Page;
+	/**Start Erase*/
+	SET_BIT(FPEC->FLASH_CR,STRT);
+	while(GET_BIT(FPEC->FLASH_SR,BSY)==1);
+	SET_BIT(FPEC->FLASH_SR,EOP);
+	CLR_BIT(FPEC->FLASH_CR,PG);
+}
 void MFPEC_VidErase_Page(uint16 copy_uint16Page)
 {
 	while(GET_BIT(FPEC->FLASH_SR,BSY)==1);
