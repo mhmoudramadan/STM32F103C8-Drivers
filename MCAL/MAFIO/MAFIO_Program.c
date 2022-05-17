@@ -16,7 +16,7 @@ void MAFIO_VidSelectPort_Line_Configuration(uint8 copy_uint8Line,uint8 copy_uint
 	/*Register index*/
 	Loc_RegIndex=copy_uint8Line/LINE_4BIT;
 	/*Offest*/
-	Loc_Offest=copy_uint8Line/LINE_4BIT;
+	Loc_Offest=copy_uint8Line%LINE_4BIT;
 	Loc_Offest=Loc_Offest*4;
 
 	/*Clear 4 bits first */
