@@ -12,6 +12,9 @@
 
 void MRCC_VidInitSystemClock(void)
 {
+	/*Clear Register At first*/
+	RCC_CR=0x00000083;
+	RCC_CFGR=0x00000000;
 	/*choose system clock from option
 	 * 1-HSI
 	 * 2-HSE_CRYSTAL
@@ -50,8 +53,8 @@ void MRCC_VidInitSystemClock(void)
    	   SET_BIT(RCC_CFGR,RCC_CFGR_PLLSRC);
    #error"Configuration is not Valid"
 	#endif
-   	   while(!(RCC_CR & (1<<RCC_CR_PLLRDY)));
    	   SET_BIT(RCC_CR,RCC_CR_PLLON);
+   	   while(!(RCC_CR & (1<<RCC_CR_PLLRDY)));
    	   CLR_BIT(RCC_CFGR,RCC_CFGR_SW0);
    	   SET_BIT(RCC_CFGR,RCC_CFGR_SW1);
 #error"Configuration is not Valid"
