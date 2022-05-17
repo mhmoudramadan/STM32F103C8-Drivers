@@ -31,7 +31,7 @@ typedef struct
 #define DMA ((volatile MDMA_Register *)0x40020000)
 
 /*DMA Register Bit Definitions*/
-/*ISR */
+/*ISR & IFCR*/
 #define DMA_GIF1		0
 #define DMA_TCIF1		1
 #define DMA_HTIF1		2
@@ -68,7 +68,7 @@ typedef struct
 #define DMA_TEIF7		27
 
 /*DMA Channel register bit definition*/
-	/*CRC*/
+	/*CCR*/
 #define DMA_EN 			0
 #define DMA_TCIE		1
 #define DMA_HTIE		2

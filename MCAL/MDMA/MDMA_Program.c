@@ -73,16 +73,16 @@ void MDMA_VidTransfer(MDMA_Channels copy_channel,MDMA_TransferData *copy_trnsfer
 	if(copy_trnsfer->Transfer_Mode== MEMORY_TO_PREIPHERAL)
 	{
 		/*Set memory as source*/
-		DMA->Channel[copy_channel].CMAR=copy_trnsfer->Puint32SourceAddress;
+		DMA->Channel[copy_channel].CMAR=*copy_trnsfer->Puint32SourceAddress;
 		/*Set Peripheral as distination*/
-		DMA->Channel[copy_channel].CPAR=copy_trnsfer->Puint32DistenationAddress;
+		DMA->Channel[copy_channel].CPAR=*copy_trnsfer->Puint32DistenationAddress;
 	}
 	else
 	{
 		/*Set memory as distination*/
-		DMA->Channel[copy_channel].CMAR=copy_trnsfer->Puint32DistenationAddress;
+		DMA->Channel[copy_channel].CMAR=*copy_trnsfer->Puint32DistenationAddress;
 		/*Set Peripheral as source*/
-		DMA->Channel[copy_channel].CPAR=copy_trnsfer->Puint32SourceAddress;
+		DMA->Channel[copy_channel].CPAR=*copy_trnsfer->Puint32SourceAddress;
 	}
 	/*Block Size No Of data to transfer 0:15*/
 	DMA->Channel[copy_channel].CNDTR=copy_trnsfer->copy_uint16BlockSize;
@@ -132,7 +132,7 @@ void MDMA1_Channel2_IRQ(void)
 void MDMA1_Channel3_IRQ(void)
 {
 	CALLBACK[2]();
-	/*Clear Channel Flag*/
+	/*Clear Channel Flag 15--> reserved bit 28,29,30,31 */
 	DMA->IFCR=(15<<DMA_GIF3);
 }
 void MDMA1_Channel4_IRQ(void)
