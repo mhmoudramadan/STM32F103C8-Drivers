@@ -83,4 +83,5 @@
  * */
 #define RCC_AHB_PRESCALER  RCC_HPRE_PRESCALER_0
 
+#define SYS_FREQ		8000000
 #endif /* MCAL_MRCC_MRCC_CONFIG_H_ */

@@ -69,6 +69,9 @@
 void MRCC_VidInitSystemClock(void);
 void MRCC_VidEnableSystemClock(uint8 copy_uint8BusID,uint8 copy_uint8PerpheralID);
 void MRCC_VidDisableSystemClock(uint8 copy_uint8BusID,uint8 copy_uint8PerpheralID);
+void MRCC_VidGetAPB1_Freq(uint32 *PAPB1Freq);
+void MRCC_VidGetAPB2_Freq(uint32 *PAPB1Freq);
+
 
 
 #endif /* MCAL_MRCC_MRCC_INTERFACE_H_ */
