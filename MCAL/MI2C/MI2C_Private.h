@@ -120,7 +120,7 @@ typedef struct
 /*Dual address*/
 #define MI2C_DUAL_ADDRESS_DISABLE        		((uint16)0x0000)
 #define MI2C_DUAL_ADDRESS_ENABLE         		((uint16)0x0001)
-/*Direction option*/
+/*Direction option LSB in slave address*/
 #define MI2C_DIRECTION_TRANSMITTER      		((uint8)0x00)
 #define MI2C_DIRECTION_RECEIVER         		((uint8)0x01)
 

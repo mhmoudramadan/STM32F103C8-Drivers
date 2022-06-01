@@ -90,14 +90,14 @@ ErrorState MI2C_errorstate_Start_Condition(MI2C_Register* MI2Cx,uint8 copy_uint8
 	}
 	return Loc_error;
 }
-ErrorState MI2C_errorstate_ReadReg(MI2C_Register* MI2Cx,uint8 copy_Reg,uint16 *PRegVal)
+uint16 MI2C_errorstate_ReadReg(MI2C_Register* MI2Cx,uint8 copy_Reg,uint16 *PRegVal)
 {
-	ErrorState Loc_error=OK;
+
 	volatile uint32 Loc_regVal=0;
 	Loc_regVal=(uint32) MI2Cx;
 	Loc_regVal+=copy_Reg;
 	*PRegVal=(*(volatile uint16*)Loc_regVal);
-	return Loc_error;
+	return *PRegVal;
 }
 void MI2C_errorstate_Stop_Condition(MI2C_Register* MI2Cx,uint8 copy_uint8stopstate)
 {
@@ -328,7 +328,7 @@ static ErrorState MI2C_SetClkSetting(MI2C_Register* MI2Cx,uint32 copy_ClkSpeed,u
 		{
 			Loc_Result |=MI2C_MINALLOWED_CCR_FM;
 		}
-		/*CCR FS set*/
+		/*CCR F/S set*/
 		Loc_Result |=(uint16)0x8000;
 	}
 	/*Set CCR Result*/
