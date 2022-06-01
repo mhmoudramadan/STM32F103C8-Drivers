@@ -192,7 +192,7 @@ void MI2C_VidConfguration(MI2C_Confg *PI2C_Confg,uint8 copy_uint8Mode,uint16 cop
 	if(copy_uint8Mode==MI2C_SLAVE)
 	{
 		PI2C_Confg->MI2C_Ack=ENABLE;
-		PI2C_Confg->MI2C_Interrupts=ENABLE;
+		PI2C_Confg->MI2C_Interrupts.MI2C_EventState=ENABLE;
 	}
 	else if(copy_uint8Mode==MI2C_MASTER)
 	{
