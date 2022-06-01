@@ -24,7 +24,7 @@ ErrorState MI2C_errorstate_Init(MI2C_Register* MI2Cx,MI2C_Confg *PI2C_Config)
 	/*I2C CLK*/
 	MI2C_SetClkSetting(MI2Cx,PI2C_Config->MI2C_ClockSpeed,PI2C_Config->MI2C_DutyCycle);
 	/*DMA*/
-	Loc_Error=MI2C_ConfigDMA(MI2Cx,PI2C_Config->MI2C_DMA);
+	MI2C_ConfigDMA(MI2Cx,PI2C_Config->MI2C_DMA);
 	/*Set address1*/
 	MI2C_SetAdd1(MI2Cx,PI2C_Config->MI2C_OWN_Address1,PI2C_Config->MI2C_AddressLength);
 	/*Set I2C Mode*/
@@ -38,7 +38,7 @@ ErrorState MI2C_errorstate_Init(MI2C_Register* MI2Cx,MI2C_Confg *PI2C_Config)
 	/*confg interrupts*/
 	MI2C_errorstate_Confg_Interrupts(MI2Cx,&(PI2C_Config->MI2C_Interrupts));
 	/*Enable I2C*/
-	Loc_Error=MI2C_errorstate_SetState(MI2Cx,PI2C_Config->MI2C_Initial_State);
+	MI2C_errorstate_SetState(MI2Cx,PI2C_Config->MI2C_Initial_State);
 	return Loc_Error;
 }
 ErrorState MI2C_errorstate_SetState(MI2C_Register* MI2Cx,uint8 copy_uint8State)
@@ -224,7 +224,7 @@ uint8 MI2C_uint8_ReceiveData(MI2C_Register* MI2Cx)
 	return Loc_ReceiveVal;
 }
 
-ErrorState MI2C_errorstate_Confg_Interrupts(MI2C_Register* MI2Cx,MI2C_State *copy_State)
+ErrorState MI2C_errorstate_Confg_Interrupts(MI2C_Register* MI2Cx,MI2C_State* copy_State)
 {
 	ErrorState Loc_error=0;
 	switch(copy_State->MI2C_BuffState)
@@ -285,6 +285,8 @@ static ErrorState MI2C_SetClkSetting(MI2C_Register* MI2Cx,uint32 copy_ClkSpeed,u
 	MI2Cx->CR2 &=0xFFC0;
 	MRCC_VidGetAPB1_Freq(&Loc_APB1Freq);
 	Loc_Freq=(uint16)Loc_APB1Freq/1000000;
+	/*Config Freq bits*/
+	MI2Cx->CR2 |=Loc_Freq;
 	/*Disable peripheral*/
 	CLR_BIT(MI2Cx->CR1,PE);
 	if(copy_ClkSpeed<=MI2C_STANDARD_SM_MAX)
@@ -294,11 +296,12 @@ static ErrorState MI2C_SetClkSetting(MI2C_Register* MI2Cx,uint32 copy_ClkSpeed,u
 		/*configure TRISE with Max SCL Rasie*/
 		MI2Cx->TRISE=Loc_Freq+1;
 		/*Sm Calculation
-		 * Tlow = 2 * CCR * TPCLK1*/
-		Loc_Result=(uint16)(Loc_APB1Freq/(copy_ClkSpeed*2));
+		 * t high = Tlow = CCR * TPCLK1*/
+		Loc_Result=(uint16)(Loc_APB1Freq/(copy_ClkSpeed));
 		/*Check Result for Allowed CCR*/
 		if(Loc_Result<MI2C_MINALLOWED_CCR_SM)
 		{
+			/*Minmum CCR Value */
 			Loc_Result=MI2C_MINALLOWED_CCR_SM;
 		}
 	}
@@ -325,6 +328,7 @@ static ErrorState MI2C_SetClkSetting(MI2C_Register* MI2Cx,uint32 copy_ClkSpeed,u
 		{
 			Loc_Result |=MI2C_MINALLOWED_CCR_FM;
 		}
+		/*CCR FS set*/
 		Loc_Result |=(uint16)0x8000;
 	}
 	/*Set CCR Result*/
